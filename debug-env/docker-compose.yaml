@@ -1,0 +1,156 @@
+version: "2.3"
+
+networks:
+  default:
+    #MODIFY rename template {PROJECT_NAME}
+    name: plugin-template-network
+
+services:
+
+  pg:                   #              docker exec -it plugin-test-pg psql -U postgres
+    image: postgres:13.4
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-pg
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "Ek5FcGfe2Pn6Q1NU90XFkXgnCOy1qe"
+    ports:
+      - "23121:5432"
+    volumes:
+      #MODIFY rename template {PROJECT_NAME}
+      - /tmp/plugin-template-volumes/pg-data:/var/lib/postgresql/data
+      - ./pg-init:/docker-entrypoint-initdb.d
+
+  mongo:                #              docker exec -it plugin-test-mongo mongo
+    image: mongo:4.4.9
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-mongo
+    mem_limit: 700M
+    restart: always
+    ports:
+      - "23117:27017"
+    volumes:
+      #MODIFY rename template {PROJECT_NAME}
+      - /tmp/plugin-template-volumes/mongo:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    command:
+      - docker-entrypoint.sh
+      - --bind_ip_all
+      - --replSet
+      - main
+
+  mongo-express:
+    image: mongo-express:0.54.0
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-mongo-express
+    mem_limit: 200M
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - "23118:8081"                                        # MONGO   http://localhost:23118
+    environment:
+      ME_CONFIG_OPTIONS_EDITORTHEME: cobalt
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: 111
+      ME_CONFIG_MONGODB_SERVER: mongo
+
+  zoo:
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-zoo
+    image: confluentinc/cp-zookeeper:5.5.0
+    user: "0:0"
+    mem_limit: 200M
+    restart: always
+    ports:
+      - "23120:2181"
+    volumes:
+      #MODIFY rename template {PROJECT_NAME}
+      - /tmp/plugin-template-volumes/zookeeper/data:/var/lib/zookeeper/data
+      #MODIFY rename template {PROJECT_NAME}
+      - /tmp/plugin-template-volumes/zookeeper/log:/var/lib/zookeeper/log
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 11
+      ZOOKEEPER_SYNC_LIMIT: 5
+
+  zoo-navigator:
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-zoo-navigator
+    image: elkozmon/zoonavigator:1.0.1
+    ports:
+      - "23191:9001"                              #  http://localhost:23191
+    environment:
+      HTTP_PORT: "9001"
+      AUTO_CONNECT_CONNECTION_ID: "MAIN"
+      CONNECTION_MAIN_NAME: "main"
+      CONNECTION_MAIN_CONN: "zoo:2181"
+
+  kf:
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-temlpate-kf
+    image: wurstmeister/kafka:2.13-2.7.0
+    mem_limit: 1G
+    restart: always
+    ports:
+      - "23193:9093"
+    depends_on:
+      - zoo
+    volumes:
+      #MODIFY rename template {PROJECT_NAME}
+      - /tmp/plugin-template-volumes/kafka_data:/kafka-data
+      #MODIFY rename template {PROJECT_NAME}
+      - /tmp/plugin-template-volumes/kafka_logs:/opt/kafka/logs
+    environment:
+      KAFKA_BROKER_ID: "1"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "IN_DOCKER:PLAINTEXT,FROM_LOCALHOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "IN_DOCKER://kf:9092,FROM_LOCALHOST://localhost:23193"
+      KAFKA_LISTENERS: "IN_DOCKER://0.0.0.0:9092,FROM_LOCALHOST://0.0.0.0:9093"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "IN_DOCKER"
+      KAFKA_ZOOKEEPER_CONNECT: "zoo:2181"
+      KAFKA_LOG_DIRS: "/kafka-data"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: "1"
+      KAFKA_LOG_RETENTION_HOURS: "-1"
+      KAFKA_NUM_PARTITIONS: "48"
+      KAFKA_HEAP_OPTS: "-Xmx1G -Xms1G"
+
+  kafdrop:
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-kafdrop
+    image: obsidiandynamics/kafdrop:3.27.0
+    mem_limit: 200M
+    restart: always
+    ports:
+      - "23190:9000"                              #  http://localhost:23190
+    environment:
+      KAFKA_BROKERCONNECT: "kf:9092"
+      SERVER_PORT: "9000"
+      JVM_OPTS: "-Xms100M -Xmx100M"
+      SERVER_SERVLET_CONTEXTPATH: "/"
+
+  es:
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-es
+    image: elasticsearch:7.10.1
+    mem_limit: 1G
+    restart: always
+    ports:
+      - "23197:9200"                              #  http://localhost:23197
+    user: "0:0"
+    environment:
+      #- cluster.name=docker-cluster
+      - discovery.type=single-node
+      - node.name=from-plugin
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - TAKE_FILE_OWNERSHIP=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      #MODIFY rename template {PROJECT_NAME}
+      - /tmp/plugin-template-volumes/elasticsearch:/usr/share/elasticsearch/data

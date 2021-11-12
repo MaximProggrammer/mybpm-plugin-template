@@ -1,0 +1,50 @@
+plugins {
+  // id 'jar'
+}
+
+dependencies {
+
+  compileOnly "org.projectlombok:lombok:$lombokVersion"
+  annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+  testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+  testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+  compile "kz.greetgo.mybpm:plugin_share:$mybpmVersion"
+  testImplementation "kz.greetgo.mybpm:mybpm_build:$mybpmVersion"
+  compile "kz.greetgo:greetgo.scheduling:$greetgoSchedulerVersion"
+
+  compile "org.springframework:spring-web:$springWebVersion"
+
+}
+
+sourceSets.main.resources.srcDirs += rootProject.file('versions')
+
+jar {
+  enabled = true
+}
+
+task dist(type: JavaExec) {
+  group 'build'
+  dependsOn jar
+  classpath = sourceSets.test.runtimeClasspath
+  main = "kz.greetgo.mybpm_build.PrepareJars"
+  doFirst {
+
+    delete buildDir.toPath().resolve("dist")
+
+    args "-extern"; args rootProject.name + "/extern"
+    args "-project"; args rootProject.name + "/project"
+
+    args "-jar-base-name"; args rootProject.name
+    args "-root-dir"; args rootDir.getAbsolutePath()
+    args "-dist-dir"; args buildDir.toPath().resolve("dist").toFile().getAbsolutePath()
+    args "-jar"; args jar.archiveFile.get().asFile.getAbsolutePath()
+    for (File file : sourceSets.main.runtimeClasspath.getFiles()) {
+      if (file.exists() && file.getName().toLowerCase().endsWith(".jar")) {
+        args "-jar"; args file.getAbsolutePath()
+      }
+    }
+
+  }
+}

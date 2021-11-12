@@ -1,0 +1,2 @@
+###MODIFY replace plugin-template {PROJECT_NAME}
+plugin-template

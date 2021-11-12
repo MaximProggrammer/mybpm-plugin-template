@@ -1,0 +1,161 @@
+//noinspection SpellCheckingInspection
+plugins {
+  id 'org.springframework.boot' version "2.2.0.RELEASE" apply false
+//  id 'com.palantir.docker' version '0.21.0' apply false
+  //noinspection SpellCheckingInspection
+  id 'com.bmuschko.docker-remote-api' version '6.4.0' apply false
+}
+
+allprojects {
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+  apply plugin: 'maven'
+  apply plugin: 'idea'
+
+  version = rootProject.file('versions/version.txt').text.trim()
+
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+
+///MODIFY replace mybpm_plugin_test {PROJECT_NAME}
+  group = "kz.greetgo.mybpm_plugin_test"
+
+  buildscript {
+    repositories {
+      mavenLocal()
+      mavenCentral()
+    }
+  }
+
+  repositories {
+    mavenLocal()
+    if (System.getenv('GG_REPO')?.trim()) maven { url System.getenv('GG_REPO').trim() }
+    mavenCentral()
+  }
+
+  [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+  [compileJava, compileTestJava]*.options*.debugOptions*.debugLevel = "source,lines,vars"
+
+}
+
+subprojects {
+
+  task allDeps(type: DependencyReportTask) {}
+
+  dependencies {
+    ext.mybpmVersion = "4.0.102"
+    ext.testNgVersion = "7.4.0"
+    ext.assertjVersion = "3.12.2"
+    ext.lombokVersion = '1.18.22'
+    ext.greetgoSchedulerVersion = "3.0.3"
+    ext.springWebVersion = "5.2.0.RELEASE"
+
+    testCompile "org.testng:testng:$testNgVersion"
+    compile "org.assertj:assertj-core:$assertjVersion"
+  }
+
+  tasks.withType(Javadoc) {
+    //noinspection SpellCheckingInspection
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+  }
+
+  test.useTestNG()
+  test.testLogging.exceptionFormat = "full"
+
+  idea.module.downloadSources = true
+  idea.module.downloadJavadoc = true
+  idea.module.inheritOutputDirs = false
+  idea.module.outputDir = file("$buildDir/idea_classes/main/")
+  idea.module.testOutputDir = file("$buildDir/idea_classes/test/")
+  idea.module.excludeDirs += file('mybpm/volumes')
+
+  sourceSets.main.java.srcDirs = ["src"]
+  sourceSets.test.java.srcDirs = ["test_src"]
+  sourceSets.main.resources.srcDirs = ["src_resources"]
+  sourceSets.test.resources.srcDirs = ["test_resources"]
+
+  sourceSets.main.resources {
+    srcDirs += sourceSets.main.java.srcDirs
+    exclude '**/*.java'
+  }
+  sourceSets.test.resources {
+    srcDirs += sourceSets.test.java.srcDirs
+    exclude '**/*.java'
+  }
+
+  jar {
+    manifest {
+      attributes 'Specification-Title': project.name
+      attributes 'Specification-Version': archiveVersion
+      attributes 'Specification-Vendor': "greetgo!"
+
+      attributes 'Implementation-Version': extractLastGitCommitId()
+
+      attributes 'Created-By': System.getProperty("user.name")
+      attributes 'Created-At': new Date().format("yyyy-MM-dd/HH:mm:ss")
+    }
+  }
+
+}
+
+def extractLastGitCommitId() {
+  def gitFolder = "${rootProject.projectDir}/.git/"
+
+  def takeFromHash = 17
+
+  //noinspection GroovyAssignabilityCheck
+  if (!new File(gitFolder + "HEAD").exists()) {
+    return "UNKNOWN"
+  }
+
+  /*
+   * '.git/HEAD' contains either
+   *      in case of detached head: the currently checked out commit hash
+   *      otherwise: a reference to a file containing the current commit hash
+   */
+  //noinspection GroovyAssignabilityCheck
+  def head = new File(gitFolder + "HEAD").text.split(":") // .git/HEAD
+  def isCommit = head.length == 1
+  // def isRef = head.length > 1     // ref: refs/heads/master
+
+  if (isCommit) {
+    return head[0].trim().take(takeFromHash)
+  }
+
+  def reference = head[1].trim()
+
+  //noinspection GroovyAssignabilityCheck
+  def refHead = new File(gitFolder + reference) // .git/refs/heads/master
+  if (refHead.exists()) {
+    return refHead.text.trim().take(takeFromHash)
+  }
+
+  //noinspection GroovyAssignabilityCheck
+  def packedRefsFile = new File(gitFolder + "packed-refs")
+
+  if (packedRefsFile.exists()) {
+
+    def lines = packedRefsFile.text.split("\n")
+
+    for (String line : lines) {
+
+      if (line.trim().startsWith("#")) {
+        continue
+      }
+
+      def split = line.split("\\s+")
+      if (split.length == 2) {
+
+        if (split[1] == reference) {
+          return split[0]
+        }
+
+      }
+    }
+
+  }
+
+  throw new Exception("Cannot find commit id")
+}

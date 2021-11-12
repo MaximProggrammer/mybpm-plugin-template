@@ -1,0 +1,48 @@
+version: "2.4"
+
+networks:
+  default:
+    external:
+      #MODIFY rename template {PROJECT_NAME}
+      name: plugin-template-network
+
+services:
+
+  web:
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-web
+    image: dockerhub.mybpm.kz/mybpm-web-master
+    restart: always
+    ports:
+      - "23100:80"              #                 WEB        http://localhost:23100
+    depends_on:
+      - api
+    environment:
+      MYBPM_API_HOST: "api"
+      MYBPM_API_PORT: "8080"
+
+  api:
+    #MODIFY rename template {PROJECT_NAME}
+    container_name: plugin-template-api
+    #MODIFY rename template {PROJECT_NAME}
+    image: plugin-template-api-debug
+    #restart: unless-stopped
+    ports:
+      - "23101:8080"              #                 SERVER   http://localhost:23101/web/test/hello
+      - "23102:5005"              #                 DEBUG    localhost 23102
+    environment:
+      #MODIFY rename template {PROJECT_NAME}
+      MYBPM_PLUGINS: "template"
+      MYBPM_JAVA_DEBUG: "yes"
+      MYBPM_LOGS_COLORED: "true"
+      MYBPM_COMPANY_CODE: "greetgo"
+      MYBPM_MONGO_SERVERS: "mongo:27017"
+      MYBPM_ZOOKEEPER_SERVERS: "zoo:2181"
+      MYBPM_KAFKA_SERVERS: "kf:9092"
+      MYBPM_AUX1_DB_NAME: "mybpm_aux1"
+      MYBPM_AUX1_HOST: "pg"
+      MYBPM_AUX1_PORT: "5432"
+      MYBPM_AUX1_USER_NAME: "mybpm"
+      MYBPM_AUX1_PASSWORD: "k3KIM7i98lfrKlz8928Ys1xy8sqnU4"
+      MYBPM_ELASTIC_SEARCH_SERVERS: "es:9200"
+      MYBPM_FILES_MONGO_SERVERS: "mongo:27017"

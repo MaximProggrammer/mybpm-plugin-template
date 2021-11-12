@@ -1,0 +1,5 @@
+///MODIFY replace mybpm-plugin-template {PROJECT_NAME}
+rootProject.name = 'mybpm-plugin-template'
+
+include ":plugin"
+include ":debug"

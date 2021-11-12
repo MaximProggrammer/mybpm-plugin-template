@@ -1,0 +1,24 @@
+version: 1
+
+plugin:
+  id: test
+  #MODIFY rename template {PROJECT_NAME}
+  #MODIFY rename Template {PROJECT_NAME}
+  main-class: kz.greetgo.mybpm.plugin.template.TemplatePluginMain
+  umbilical-cord-services:
+
+    kz.greetgo.mybpm.plugin.share.umbilical_service.BoUmbilicalService:
+      required-business-objects:
+        - kz.greetgo/person
+        - kz.greetgo/department
+
+    kz.greetgo.mybpm.plugin.share.umbilical_service.ToolsUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.ControllerRegistrarUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.MapStoreUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.InvitationUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.SequenceUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.BoiConsumerUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.LiquidMongoUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.BoiInterceptorUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.SchedulerUmbilicalService:
