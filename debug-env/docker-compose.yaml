@@ -7,7 +7,8 @@ networks:
 
 services:
 
-  pg:                   #              docker exec -it plugin-test-pg psql -U postgres
+                        ###MODIFY replace template {PLUGIN_NAME.under}
+  pg:                   #              docker exec -it plugin-template-pg psql -U postgres
     image: postgres:13.4
     ###MODIFY replace template {PLUGIN_NAME.under}
     container_name: plugin-template-pg
@@ -21,7 +22,8 @@ services:
       - /tmp/plugin-template-volumes/pg-data:/var/lib/postgresql/data
       - ./pg-init:/docker-entrypoint-initdb.d
 
-  mongo:                #              docker exec -it plugin-test-mongo mongo
+                        ###MODIFY replace template {PLUGIN_NAME.under}
+  mongo:                #              docker exec -it plugin-template-mongo mongo
     image: mongo:4.4.9
     ###MODIFY replace template {PLUGIN_NAME.under}
     container_name: plugin-template-mongo
