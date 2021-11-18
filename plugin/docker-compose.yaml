@@ -33,6 +33,7 @@ services:
     environment:
       #MODIFY rename template {PROJECT_NAME}
       MYBPM_PLUGINS: "template"
+      MYBPM_CORS: "ALL"
       MYBPM_JAVA_DEBUG: "yes"
       MYBPM_LOGS_COLORED: "true"
       MYBPM_COMPANY_CODE: "greetgo"
