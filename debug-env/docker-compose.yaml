@@ -2,14 +2,14 @@ version: "2.3"
 
 networks:
   default:
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     name: plugin-template-network
 
 services:
 
   pg:                   #              docker exec -it plugin-test-pg psql -U postgres
     image: postgres:13.4
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-pg
     restart: always
     environment:
@@ -17,20 +17,20 @@ services:
     ports:
       - "23121:5432"
     volumes:
-      ###MODIFY rename template {PROJECT_NAME.under}
+      ###MODIFY replace template {PROJECT_NAME.under}
       - /tmp/plugin-template-volumes/pg-data:/var/lib/postgresql/data
       - ./pg-init:/docker-entrypoint-initdb.d
 
   mongo:                #              docker exec -it plugin-test-mongo mongo
     image: mongo:4.4.9
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-mongo
     mem_limit: 700M
     restart: always
     ports:
       - "23117:27017"
     volumes:
-      ###MODIFY rename template {PROJECT_NAME.under}
+      ###MODIFY replace template {PROJECT_NAME.under}
       - /tmp/plugin-template-volumes/mongo:/data/db
       - ./mongo-init:/docker-entrypoint-initdb.d
     command:
@@ -41,7 +41,7 @@ services:
 
   mongo-express:
     image: mongo-express:0.54.0
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-mongo-express
     mem_limit: 200M
     restart: always
@@ -56,7 +56,7 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
 
   zoo:
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-zoo
     image: confluentinc/cp-zookeeper:5.5.0
     user: "0:0"
@@ -65,9 +65,9 @@ services:
     ports:
       - "23120:2181"
     volumes:
-      ###MODIFY rename template {PROJECT_NAME.under}
+      ###MODIFY replace template {PROJECT_NAME.under}
       - /tmp/plugin-template-volumes/zookeeper/data:/var/lib/zookeeper/data
-      ###MODIFY rename template {PROJECT_NAME.under}
+      ###MODIFY replace template {PROJECT_NAME.under}
       - /tmp/plugin-template-volumes/zookeeper/log:/var/lib/zookeeper/log
     environment:
       ZOOKEEPER_SERVER_ID: 1
@@ -77,7 +77,7 @@ services:
       ZOOKEEPER_SYNC_LIMIT: 5
 
   zoo-navigator:
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-zoo-navigator
     image: elkozmon/zoonavigator:1.0.1
     ports:
@@ -89,7 +89,7 @@ services:
       CONNECTION_MAIN_CONN: "zoo:2181"
 
   kf:
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-temlpate-kf
     image: wurstmeister/kafka:2.13-2.7.0
     mem_limit: 1G
@@ -99,9 +99,9 @@ services:
     depends_on:
       - zoo
     volumes:
-      ###MODIFY rename template {PROJECT_NAME.under}
+      ###MODIFY replace template {PROJECT_NAME.under}
       - /tmp/plugin-template-volumes/kafka_data:/kafka-data
-      ###MODIFY rename template {PROJECT_NAME.under}
+      ###MODIFY replace template {PROJECT_NAME.under}
       - /tmp/plugin-template-volumes/kafka_logs:/opt/kafka/logs
     environment:
       KAFKA_BROKER_ID: "1"
@@ -118,7 +118,7 @@ services:
       KAFKA_HEAP_OPTS: "-Xmx1G -Xms1G"
 
   kafdrop:
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-kafdrop
     image: obsidiandynamics/kafdrop:3.27.0
     mem_limit: 200M
@@ -132,7 +132,7 @@ services:
       SERVER_SERVLET_CONTEXTPATH: "/"
 
   es:
-    ###MODIFY rename template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-es
     image: elasticsearch:7.10.1
     mem_limit: 1G
@@ -152,5 +152,5 @@ services:
         soft: -1
         hard: -1
     volumes:
-      ###MODIFY rename template {PROJECT_NAME.under}
+      ###MODIFY replace template {PROJECT_NAME.under}
       - /tmp/plugin-template-volumes/elasticsearch:/usr/share/elasticsearch/data
