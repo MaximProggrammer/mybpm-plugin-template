@@ -16,6 +16,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "Ek5FcGfe2Pn6Q1NU90XFkXgnCOy1qe"
     ports:
+      ###MODIFY port 23121
       - "23121:5432"
     volumes:
       ###MODIFY replace template {PLUGIN_NAME.under}
