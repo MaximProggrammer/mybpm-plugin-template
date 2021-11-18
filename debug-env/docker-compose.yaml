@@ -9,7 +9,7 @@ services:
 
   pg:                   #              docker exec -it plugin-test-pg psql -U postgres
     image: postgres:13.4
-    ###MODIFY replace1 template {PROJECT_NAME.under}
+    ###MODIFY replace template {PROJECT_NAME.under}
     container_name: plugin-template-pg
     restart: always
     environment:
