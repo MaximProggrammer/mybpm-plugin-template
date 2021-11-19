@@ -1,4 +1,4 @@
-///MODIFY replace mybpm-plugin-template {PROJECT_NAME}
+///MODIFY replace template {PLUGIN_NAME.under}
 rootProject.name = 'mybpm-plugin-template'
 
 include ":plugin"
