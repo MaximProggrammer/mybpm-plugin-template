@@ -97,7 +97,7 @@ services:
 
   kf:
     ###MODIFY replace template {PLUGIN_NAME.under}
-    container_name: plugin-temlpate-kf
+    container_name: plugin-template-kf
     image: wurstmeister/kafka:2.13-2.7.0
     mem_limit: 1G
     restart: always
