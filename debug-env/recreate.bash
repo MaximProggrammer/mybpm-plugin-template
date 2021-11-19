@@ -4,8 +4,8 @@ cd "$(dirname "$0")"
 
 docker-compose down
 
-#MODIFY rename template {PROJECT_NAME}
-docker run --rm -v "/tmp/plugin-template-volumes:/data" \
+###MODIFY replace template {PLUGIN_NAME.under}
+docker run --rm -v "$HOME/volumes/plugin-template:/data" \
        busybox:1.28 \
        find /data -mindepth 1 -maxdepth 1 -exec \
        rm -rf {} \;
