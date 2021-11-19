@@ -1,4 +1,4 @@
-//MODIFY rename template {PROJECT_NAME}
+///MODIFY replace template {PLUGIN_NAME.under}
 package kz.greetgo.mybpm.plugin.template;
 
 import java.util.Date;
