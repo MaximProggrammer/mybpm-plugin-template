@@ -34,7 +34,7 @@ services:
       ###MODIFY port 23102
       - "23102:5005"              #                 DEBUG    localhost 23102
     environment:
-      ###MODIFY replace template {PLUGIN_NAME.dashed}
+      ###MODIFY replace template {PLUGIN_NAME.under}
       MYBPM_PLUGINS: "template"
       MYBPM_CORS: "ALL"
       MYBPM_JAVA_DEBUG: "yes"
