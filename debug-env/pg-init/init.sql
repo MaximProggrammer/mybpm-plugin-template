@@ -1,8 +1,10 @@
+---MODIFY password k3KIM7i98lfrKlz8928Ys1xy8sqnU4
 CREATE USER mybpm WITH ENCRYPTED PASSWORD 'k3KIM7i98lfrKlz8928Ys1xy8sqnU4';
 ALTER  USER mybpm WITH CREATEROLE;
 CREATE       DATABASE mybpm_aux1 WITH OWNER mybpm;
 GRANT ALL ON DATABASE mybpm_aux1 TO         mybpm;
 
+---MODIFY password 25UsbGa7G76X01F30K09D7v1a96vYZUybWVsZWqN
 CREATE USER     test_register_util WITH ENCRYPTED PASSWORD '25UsbGa7G76X01F30K09D7v1a96vYZUybWVsZWqN';
 ALTER  USER     test_register_util WITH CREATEROLE;
 CREATE DATABASE test_register_util_db WITH OWNER test_register_util;
