@@ -31,6 +31,7 @@ services:
     mem_limit: 700M
     restart: always
     ports:
+      ###MODIFY port 23117
       - "23117:27017"
     volumes:
       ###MODIFY replace template {PLUGIN_NAME.under}
@@ -51,6 +52,7 @@ services:
     depends_on:
       - mongo
     ports:
+      ###MODIFY port 23118
       - "23118:8081"                                        # MONGO   http://localhost:23118
     environment:
       ME_CONFIG_OPTIONS_EDITORTHEME: cobalt
@@ -66,6 +68,7 @@ services:
     mem_limit: 200M
     restart: always
     ports:
+      ###MODIFY port 23120
       - "23120:2181"
     volumes:
       ###MODIFY replace template {PLUGIN_NAME.under}
@@ -84,6 +87,7 @@ services:
     container_name: plugin-template-zoo-navigator
     image: elkozmon/zoonavigator:1.0.1
     ports:
+      ###MODIFY port 23191
       - "23191:9001"                              #  http://localhost:23191
     environment:
       HTTP_PORT: "9001"
@@ -98,6 +102,7 @@ services:
     mem_limit: 1G
     restart: always
     ports:
+      ###MODIFY port 23193
       - "23193:9093"
     depends_on:
       - zoo
@@ -109,6 +114,7 @@ services:
     environment:
       KAFKA_BROKER_ID: "1"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "IN_DOCKER:PLAINTEXT,FROM_LOCALHOST:PLAINTEXT"
+      ###MODIFY port 23193
       KAFKA_ADVERTISED_LISTENERS: "IN_DOCKER://kf:9092,FROM_LOCALHOST://localhost:23193"
       KAFKA_LISTENERS: "IN_DOCKER://0.0.0.0:9092,FROM_LOCALHOST://0.0.0.0:9093"
       KAFKA_INTER_BROKER_LISTENER_NAME: "IN_DOCKER"
@@ -127,6 +133,7 @@ services:
     mem_limit: 200M
     restart: always
     ports:
+      ###MODIFY port 23190
       - "23190:9000"                              #  http://localhost:23190
     environment:
       KAFKA_BROKERCONNECT: "kf:9092"
@@ -141,6 +148,7 @@ services:
     mem_limit: 1G
     restart: always
     ports:
+      ###MODIFY port 23197
       - "23197:9200"                              #  http://localhost:23197
     user: "0:0"
     environment:

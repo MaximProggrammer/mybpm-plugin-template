@@ -1,13 +1,16 @@
 <component name="ProjectRunConfigurationManager">
-  <!-- MODIFY replace template {PROJECT_NAME} -->
+  <!-- MODIFY port 23102 -->
+  <!-- MODIFY replace template {PLUGIN_NAME.under} -->
   <configuration default="false" name="localhost-plugin-template:23102" type="Remote">
     <option name="USE_SOCKET_TRANSPORT" value="true" />
     <option name="SERVER_MODE" value="false" />
     <option name="SHMEM_ADDRESS" />
     <option name="HOST" value="localhost" />
+    <!-- MODIFY port 23102 -->
     <option name="PORT" value="23102" />
     <option name="AUTO_RESTART" value="false" />
     <RunnerSettings RunnerId="Debug">
+      <!-- MODIFY port 23102 -->
       <option name="DEBUG_PORT" value="23102" />
       <option name="LOCAL" value="false" />
     </RunnerSettings>

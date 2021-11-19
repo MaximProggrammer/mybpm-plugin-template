@@ -3,17 +3,18 @@ version: "2.4"
 networks:
   default:
     external:
-      #MODIFY rename template {PROJECT_NAME}
+      ###MODIFY replace template {PLUGIN_NAME.under}
       name: plugin-template-network
 
 services:
 
   web:
-    #MODIFY rename template {PROJECT_NAME}
+    ###MODIFY replace template {PLUGIN_NAME.under}
     container_name: plugin-template-web
     image: dockerhub.mybpm.kz/mybpm-web-master
     restart: always
     ports:
+      ###MODIFY port 23100
       - "23100:80"              #                 WEB        http://localhost:23100
     depends_on:
       - api
@@ -22,16 +23,18 @@ services:
       MYBPM_API_PORT: "8080"
 
   api:
-    #MODIFY rename template {PROJECT_NAME}
+    ###MODIFY replace template {PLUGIN_NAME.under}
     container_name: plugin-template-api
-    #MODIFY rename template {PROJECT_NAME}
+    ###MODIFY replace template {PLUGIN_NAME.under}
     image: plugin-template-api-debug
     #restart: unless-stopped
     ports:
+      ###MODIFY port 23101
       - "23101:8080"              #                 SERVER   http://localhost:23101/web/test/hello
+      ###MODIFY port 23102
       - "23102:5005"              #                 DEBUG    localhost 23102
     environment:
-      #MODIFY rename template {PROJECT_NAME}
+      ###MODIFY replace template {PLUGIN_NAME.dashed}
       MYBPM_PLUGINS: "template"
       MYBPM_CORS: "ALL"
       MYBPM_JAVA_DEBUG: "yes"
@@ -44,6 +47,7 @@ services:
       MYBPM_AUX1_HOST: "pg"
       MYBPM_AUX1_PORT: "5432"
       MYBPM_AUX1_USER_NAME: "mybpm"
+      # TODO pompei здесь надо что-то типа MODIFY password k3KIM7i98lfrKlz8928Ys1xy8sqnU4
       MYBPM_AUX1_PASSWORD: "k3KIM7i98lfrKlz8928Ys1xy8sqnU4"
       MYBPM_ELASTIC_SEARCH_SERVERS: "es:9200"
       MYBPM_FILES_MONGO_SERVERS: "mongo:27017"

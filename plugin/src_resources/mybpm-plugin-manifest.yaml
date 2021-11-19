@@ -2,8 +2,8 @@ version: 1
 
 plugin:
   id: test
-  #MODIFY rename template {PROJECT_NAME}
-  #MODIFY rename Template {PROJECT_NAME}
+  ###MODIFY replace template {PLUGIN_NAME.under}
+  ###MODIFY replace Template {PLUGIN_NAME.Camel}
   main-class: kz.greetgo.mybpm.plugin.template.TemplatePluginMain
   umbilical-cord-services:
 

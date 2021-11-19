@@ -1,7 +1,6 @@
 //noinspection SpellCheckingInspection
 plugins {
   id 'org.springframework.boot' version "2.2.0.RELEASE" apply false
-//  id 'com.palantir.docker' version '0.21.0' apply false
   //noinspection SpellCheckingInspection
   id 'com.bmuschko.docker-remote-api' version '6.4.0' apply false
 }
@@ -17,8 +16,8 @@ allprojects {
   sourceCompatibility = JavaVersion.VERSION_11
   targetCompatibility = JavaVersion.VERSION_11
 
-///MODIFY replace mybpm_plugin_test {PROJECT_NAME}
-  group = "kz.greetgo.mybpm_plugin_test"
+  ///MODIFY replace template {PLUGIN_NAME.under}
+  group = "kz.greetgo.mybpm_plugin_template"
 
   buildscript {
     repositories {
@@ -100,6 +99,7 @@ subprojects {
 
 }
 
+// TODO pompei вынести эту функцию в buildSrc
 def extractLastGitCommitId() {
   def gitFolder = "${rootProject.projectDir}/.git/"
 

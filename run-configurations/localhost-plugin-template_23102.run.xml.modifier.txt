@@ -1,1 +1,0 @@
-rename-to=localhost-plugin-{PROJECT_NAME}_23102.run.xml
