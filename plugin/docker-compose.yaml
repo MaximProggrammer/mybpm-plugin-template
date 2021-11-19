@@ -26,7 +26,7 @@ services:
     ###MODIFY replace template {PLUGIN_NAME.under}
     container_name: plugin-template-api
     ###MODIFY replace template {PLUGIN_NAME.under}
-    image: plugin-template-api-debug
+    image: mybpm-api-with-template
     #restart: unless-stopped
     ports:
       ###MODIFY port 23101

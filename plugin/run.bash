@@ -8,10 +8,10 @@ set -e
 
 docker-compose down
 
-#MODIFY rename template {PROJECT_NAME}
-docker build . -t plugin-template-api-debug
+###MODIFY replace template {PLUGIN_NAME.under}
+docker build . -t mybpm-api-with-template
 
 docker-compose up -d
 
-#MODIFY rename template {PROJECT_NAME}
+###MODIFY replace template {PLUGIN_NAME.under}
 docker logs -f plugin-template-api
