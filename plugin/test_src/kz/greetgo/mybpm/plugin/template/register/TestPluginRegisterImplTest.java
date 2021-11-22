@@ -1,7 +1,6 @@
-///MODIFY replace template {PLUGIN_NAME.under}
-package kz.greetgo.mybpm.plugin.template.register;
 ///PIN m1 MODIFY replace template {PLUGIN_NAME.under}
 ///PIN m2 MODIFY replace Template {PLUGIN_NAME.Camel}
+package kz.greetgo.mybpm.plugin.template.register;
 
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;
 import kz.greetgo.mybpm.plugin.template.etc.liquibase.LiquibaseManager;
@@ -18,8 +17,6 @@ import org.testng.annotations.Test;
 import static kz.greetgo.mybpm.plugin.template.launcher.TemplatePluginMain.PLUGIN_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-///UNPIN m1
-///UNPIN m2
 public class TestPluginRegisterImplTest extends ParentPluginTestNg {
 
   protected MybpmSimulator mybpmSimulator;

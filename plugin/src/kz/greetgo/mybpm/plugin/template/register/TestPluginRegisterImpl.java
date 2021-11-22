@@ -1,10 +1,10 @@
-///MODIFY replace template {PLUGIN_NAME.under}
+///PIN m1 MODIFY replace template {PLUGIN_NAME.under}
+///PIN m2 MODIFY replace Template {PLUGIN_NAME.Camel}
 package kz.greetgo.mybpm.plugin.template.register;
 
 import java.sql.ResultSet;
 import java.util.Date;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;
-///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.model.TestClient;
 import lombok.SneakyThrows;
 

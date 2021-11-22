@@ -1,4 +1,5 @@
-///MODIFY replace template {PLUGIN_NAME.under}
+///PIN m1 MODIFY replace template {PLUGIN_NAME.under}
+///PIN m2 MODIFY replace Template {PLUGIN_NAME.Camel}
 package kz.greetgo.mybpm.plugin.template.launcher;
 
 import kz.greetgo.mybpm.plugin.share.main.PluginMain;
@@ -9,20 +10,14 @@ import kz.greetgo.mybpm.plugin.share.umbilical_service.ControllerRegistrarUmbili
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.SchedulerUmbilicalService;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.boi.BoiModification;
-///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.controller.TestPluginController;
-///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.etc.liquibase.LiquibaseManager;
-///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.register.TestPluginRegisterImpl;
-///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.scheduler.TestSchedulerController;
 
 @PluginMainMarker
-///MODIFY replace Template {PLUGIN_NAME.Camel}
 public class TemplatePluginMain implements PluginMain {
 
-  ///MODIFY replace template {PLUGIN_NAME.under}
   public static final String PLUGIN_ID = "template";
 
   private LiquibaseManager liquibaseManager;
@@ -47,7 +42,7 @@ public class TemplatePluginMain implements PluginMain {
     var schedulerUs = umbilicalCord.get(SchedulerUmbilicalService.class);
     schedulerUs.register(testSchedulerController);
 
-    var testPluginRegister = new TestPluginRegisterImpl(postgresUs);
+    var testPluginRegister   = new TestPluginRegisterImpl(postgresUs);
     var testPluginController = new TestPluginController(testPluginRegister);
 
     var controllerRegistrarUs = umbilicalCord.get(ControllerRegistrarUmbilicalService.class);
