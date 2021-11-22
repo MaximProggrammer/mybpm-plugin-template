@@ -42,7 +42,7 @@ subprojects {
   task allDeps(type: DependencyReportTask) {}
 
   dependencies {
-    ext.mybpmVersion = "4.0.102"
+    ext.mybpmVersion = "4.0.147"
     ext.testNgVersion = "7.4.0"
     ext.assertjVersion = "3.12.2"
     ext.lombokVersion = '1.18.22'
@@ -50,6 +50,7 @@ subprojects {
     ext.springWebVersion = "5.2.0.RELEASE"
     ext.liquibaseVersion = '4.6.1'
     ext.liquibaseSlf4jVersion = '4.0.0'
+    ext.greetgoUtilVersion = "1.0.3"
 
     testCompile "org.testng:testng:$testNgVersion"
     compile "org.assertj:assertj-core:$assertjVersion"

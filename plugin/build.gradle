@@ -26,6 +26,7 @@ dependencies {
   //noinspection SpellCheckingInspection
   testCompile "com.mattbertolini:liquibase-slf4j:$liquibaseSlf4jVersion"
 
+  testCompile "kz.greetgo.util:greetgo-util:$greetgoUtilVersion"
 
 }
 

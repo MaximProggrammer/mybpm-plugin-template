@@ -1,3 +1,4 @@
+///MODIFY replace template {PLUGIN_NAME.under}
 package kz.greetgo.mybpm.plugin.template.etc.liquibase;
 
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;

@@ -18,6 +18,9 @@ import kz.greetgo.mybpm.plugin.template.scheduler.TestSchedulerController;
 ///MODIFY replace Template {PLUGIN_NAME.Camel}
 public class TemplatePluginMain implements PluginMain {
 
+  ///MODIFY replace template {PLUGIN_NAME.under}
+  public static final String PLUGIN_ID = "template";
+
   private LiquibaseManager liquibaseManager;
 
   @Override
