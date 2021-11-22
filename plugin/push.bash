@@ -6,8 +6,8 @@ set -e
 
 ../gradlew dist
 
-docker build . -t "$(bash meta/image.bash)"
+docker build . -t "$(bash lib/image.bash)"
 
-docker push "$(bash meta/image.bash)"
+docker push "$(bash lib/image.bash)"
 
-echo PUSHED IMAGE "$(bash meta/image.bash)"
+echo PUSHED IMAGE "$(bash lib/image.bash)"
