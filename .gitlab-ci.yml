@@ -23,7 +23,6 @@ recreate:
   extends: .parentMasterJob
   stage: recreate
   script:
-    - bash minikube/30-shutdown.bash
     - bash debug-env/recreate.bash
 
 plugin__test:
