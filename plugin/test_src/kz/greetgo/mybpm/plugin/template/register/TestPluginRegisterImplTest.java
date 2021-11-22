@@ -5,32 +5,14 @@ package kz.greetgo.mybpm.plugin.template.register;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;
 import kz.greetgo.mybpm.plugin.template.etc.liquibase.LiquibaseManager;
 import kz.greetgo.mybpm.plugin.template.for_tests.ParentPluginTestNg;
-import kz.greetgo.mybpm.plugin.template.for_tests.PgAccessFactory;
 import kz.greetgo.mybpm.plugin.template.model.TestClient;
-import kz.greetgo.mybpm.test.register.util.MybpmSimulator;
 import kz.greetgo.util.RND;
 import lombok.SneakyThrows;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static kz.greetgo.mybpm.plugin.template.launcher.TemplatePluginMain.PLUGIN_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestPluginRegisterImplTest extends ParentPluginTestNg {
-
-  protected MybpmSimulator mybpmSimulator;
-
-  @BeforeMethod
-  public void init_mybpmSimulator() {
-    mybpmSimulator          = new MybpmSimulator(PLUGIN_ID);
-    mybpmSimulator.pgAccess = PgAccessFactory.get();
-  }
-
-  @AfterMethod
-  public void mybpmSimulator__close() {
-    mybpmSimulator.close();
-  }
 
   @Test
   @SneakyThrows

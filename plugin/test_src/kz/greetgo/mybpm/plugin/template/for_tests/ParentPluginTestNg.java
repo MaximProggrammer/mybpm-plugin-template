@@ -1,7 +1,6 @@
-///MODIFY replace template {PLUGIN_NAME.under}
-package kz.greetgo.mybpm.plugin.template.for_tests;
 ///PIN m1 MODIFY replace template {PLUGIN_NAME.under}
 ///PIN m2 MODIFY replace Template {PLUGIN_NAME.Camel}
+package kz.greetgo.mybpm.plugin.template.for_tests;
 
 import kz.greetgo.mybpm.test.register.util.MybpmSimulator;
 import org.testng.annotations.AfterMethod;
@@ -9,8 +8,6 @@ import org.testng.annotations.BeforeMethod;
 
 import static kz.greetgo.mybpm.plugin.template.launcher.TemplatePluginMain.PLUGIN_ID;
 
-///UNPIN m1
-///UNPIN m2
 public abstract class ParentPluginTestNg {
 
   protected MybpmSimulator mybpmSimulator;
