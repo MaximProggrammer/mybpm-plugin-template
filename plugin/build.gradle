@@ -14,7 +14,18 @@ dependencies {
   testImplementation "kz.greetgo.mybpm:mybpm_build:$mybpmVersion"
   compile "kz.greetgo:greetgo.scheduling:$greetgoSchedulerVersion"
 
+  //noinspection GradlePackageUpdate
   compile "org.springframework:spring-web:$springWebVersion"
+
+  testCompile "kz.greetgo.mybpm:test-register-util:$mybpmVersion"
+
+  compileOnly "org.liquibase:liquibase-core:$liquibaseVersion"
+  testCompile "org.liquibase:liquibase-core:$liquibaseVersion"
+  //noinspection SpellCheckingInspection
+  compileOnly "com.mattbertolini:liquibase-slf4j:$liquibaseSlf4jVersion"
+  //noinspection SpellCheckingInspection
+  testCompile "com.mattbertolini:liquibase-slf4j:$liquibaseSlf4jVersion"
+
 
 }
 

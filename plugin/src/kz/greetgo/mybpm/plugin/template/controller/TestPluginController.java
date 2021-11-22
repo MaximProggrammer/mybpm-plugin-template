@@ -1,9 +1,9 @@
 ///MODIFY replace template {PLUGIN_NAME.under}
-package kz.greetgo.mybpm.plugin.template;
+package kz.greetgo.mybpm.plugin.template.controller;
 
 
-import java.util.Date;
 import kz.greetgo.mybpm.plugin.share.util.PublicAccess;
+import kz.greetgo.mybpm.plugin.template.register.TestPluginRegister;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestPluginController {
 
+  private final TestPluginRegister testPluginRegister;
+
+  public TestPluginController(TestPluginRegister testPluginRegister) {
+    this.testPluginRegister = testPluginRegister;
+  }
+
   @PublicAccess
   @GetMapping("/hello")
   public String hello(@RequestParam(value = "world", required = false) String world) {
-    for (int i = 0; i < 10; i++) {
-      System.out.println("h4w77aQMiO LL i = " + i);
-    }
-    return "Test PLUGIN: HELLO " + world + " - 00001 - NOW(" + new Date() + ")";
+    return testPluginRegister.hello(world);
   }
 
 }

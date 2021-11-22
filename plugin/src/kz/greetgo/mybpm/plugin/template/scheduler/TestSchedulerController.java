@@ -1,5 +1,5 @@
 ///MODIFY replace template {PLUGIN_NAME.under}
-package kz.greetgo.mybpm.plugin.template;
+package kz.greetgo.mybpm.plugin.template.scheduler;
 
 import java.util.Date;
 import kz.greetgo.scheduling.FromConfig;

@@ -5,7 +5,7 @@ plugin:
   id: template
   ###MODIFY replace template {PLUGIN_NAME.under}
   ###MODIFY replace Template {PLUGIN_NAME.Camel}
-  main-class: kz.greetgo.mybpm.plugin.template.TemplatePluginMain
+  main-class: kz.greetgo.mybpm.plugin.template.launcher.TemplatePluginMain
   umbilical-cord-services:
 
     kz.greetgo.mybpm.plugin.share.umbilical_service.BoUmbilicalService:

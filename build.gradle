@@ -48,6 +48,8 @@ subprojects {
     ext.lombokVersion = '1.18.22'
     ext.greetgoSchedulerVersion = "3.0.3"
     ext.springWebVersion = "5.2.0.RELEASE"
+    ext.liquibaseVersion = '4.6.1'
+    ext.liquibaseSlf4jVersion = '4.0.0'
 
     testCompile "org.testng:testng:$testNgVersion"
     compile "org.assertj:assertj-core:$assertjVersion"

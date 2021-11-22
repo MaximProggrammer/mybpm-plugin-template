@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+  <changeSet author="pompei" id="creates-table-test_client">
+    <sql endDelimiter=";;" splitStatements="true"> <![CDATA[
+      create table test_client (
+        id         varchar(32) primary key,
+        surname    varchar(300),
+        name       varchar(300),
+        patronymic varchar(300)
+      )
+    ]]></sql>
+  </changeSet>
+
+  <changeSet author="pompei" id="comments02">
+    <sql endDelimiter=";;" splitStatements="true"> <![CDATA[
+      comment on table test_client --
+        is 'Для демонстрации какой-то работы';;
+      comment on column test_client.id is 'Идентификатор';;
+      comment on column test_client.surname is 'Фамилия';;
+      comment on column test_client.name is 'Имя';;
+      comment on column test_client.patronymic is 'Отчество';;
+      ]]></sql>
+  </changeSet>
+
+</databaseChangeLog>
