@@ -16,7 +16,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 ///MODIFY replace template {PLUGIN_NAME.under}
-///MODIFY replace Template {PLUGIN_NAME.Under}
+///MODIFY replace Template {PLUGIN_NAME.Camel}
 import static kz.greetgo.mybpm.plugin.template.launcher.TemplatePluginMain.PLUGIN_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
