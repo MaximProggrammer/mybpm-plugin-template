@@ -2,8 +2,11 @@
 package kz.greetgo.mybpm.plugin.template.register;
 
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.etc.liquibase.LiquibaseManager;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.for_tests.PgAccessFactory;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.model.TestClient;
 import kz.greetgo.mybpm.test.register.util.MybpmSimulator;
 import kz.greetgo.util.RND;
@@ -12,6 +15,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+///MODIFY replace template {PLUGIN_NAME.under}
+///MODIFY replace Template {PLUGIN_NAME.Under}
 import static kz.greetgo.mybpm.plugin.template.launcher.TemplatePluginMain.PLUGIN_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
