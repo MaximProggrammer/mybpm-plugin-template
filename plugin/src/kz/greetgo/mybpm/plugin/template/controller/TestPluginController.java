@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-///UNPIN m1
-///UNPIN m2
 @RestController
 @RequestMapping("/test")
 public class TestPluginController {
 
-  private final TestPluginRegister testPluginRegister;
+  private TestPluginRegister testPluginRegister;
+
+  @SuppressWarnings("unused")
+  public TestPluginController() {}
 
   public TestPluginController(TestPluginRegister testPluginRegister) {
     this.testPluginRegister = testPluginRegister;
