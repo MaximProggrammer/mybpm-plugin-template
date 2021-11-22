@@ -3,6 +3,7 @@ package kz.greetgo.mybpm.plugin.template.controller;
 
 
 import kz.greetgo.mybpm.plugin.share.util.PublicAccess;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.register.TestPluginRegister;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

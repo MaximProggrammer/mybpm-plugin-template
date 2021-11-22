@@ -9,9 +9,13 @@ import kz.greetgo.mybpm.plugin.share.umbilical_service.ControllerRegistrarUmbili
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.SchedulerUmbilicalService;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.boi.BoiModification;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.controller.TestPluginController;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.etc.liquibase.LiquibaseManager;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.register.TestPluginRegisterImpl;
+///MODIFY replace template {PLUGIN_NAME.under}
 import kz.greetgo.mybpm.plugin.template.scheduler.TestSchedulerController;
 
 @PluginMainMarker
