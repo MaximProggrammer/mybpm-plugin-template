@@ -1,0 +1,58 @@
+before_script:
+  - export JAVA_HOME=${JAVA_11_HOME}
+  - echo JAVA_HOME=${JAVA_HOME}
+  - export java=${JAVA_HOME}/bin/java
+  - env | sort
+  - $java -version
+
+.parentMasterJob:
+  rules:
+    - if: '$CI_COMMIT_TITLE =~ /^skip:/'
+      when: never
+    - if: '$CI_COMMIT_TITLE =~ /^SCRIPT:/'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - if: '$CI_COMMIT_REF_NAME == "master-test-ci"'
+
+stages:
+  - recreate
+  - unitTests
+  - buildImages
+
+recreate:
+  extends: .parentMasterJob
+  stage: recreate
+  script:
+    - bash minikube/30-shutdown.bash
+    - bash debug-env/recreate.bash
+
+plugin__test:
+  extends: .parentMasterJob
+  stage: unitTests
+  script:
+    - sh gradlew -version
+    - sh gradlew :plugin:test
+  artifacts:
+    when: always
+    expire_in: 35 days
+    paths:
+      - plugin/build/reports
+
+buildImages:
+  extends: .parentMasterJob
+  stage: buildImages
+  script:
+    ###MODIFY replace template {PLUGIN_NAME.under}
+    - docker rmi $(docker images --filter=reference="dockerhub.mybpm.kz/mybpm-api-with-template" -q) || true
+    - git remote set-url --push origin git@${CI_SERVER_HOST}:${CI_PROJECT_PATH}.git
+    - git remote set-url        origin git@${CI_SERVER_HOST}:${CI_PROJECT_PATH}.git
+    - git checkout    ${CI_COMMIT_BRANCH}
+    - git pull origin ${CI_COMMIT_BRANCH}
+    - git status
+    - bash plugin/push.bash
+    - git status
+    - sh gradlew pushSnapshotTag_incVersionAndCommit
+    - git status
+    - git push origin ${CI_COMMIT_BRANCH}
+    - git status
+    - docker rmi $(docker images -f "dangling=true" -q) || true

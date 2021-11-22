@@ -1,6 +1,14 @@
 plugins {
-  // id 'jar'
+  //noinspection SpellCheckingInspection
+  id 'com.bmuschko.docker-remote-api'
 }
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import mybpm.CopyPreserve
+import mybpm.Git
+
+import static mybpm.Version.incrementVersionFile
 
 dependencies {
 
@@ -56,6 +64,53 @@ task dist(type: JavaExec) {
       if (file.exists() && file.getName().toLowerCase().endsWith(".jar")) {
         args "-jar"; args file.getAbsolutePath()
       }
+    }
+
+  }
+}
+
+Git git = new Git(rootDir)
+def versionFile = rootDir.toPath().resolve("versions").resolve("version.txt")
+String version = versionFile.text.trim()
+String tagName = "snapshot-" + git.currentBranch() + "-" + version
+
+task pushSnapshotTag_incVersionAndCommit() {
+  group "docker-lib"
+  doFirst {
+
+    Exception error = null
+
+    for (int i = 0; i < 30; i++) {
+      try {
+        git.tag(tagName, "Delete tag with command: git tag -d " + tagName)
+        def remote = git.currentRemote()
+        println "6BsxkX5T40 :: push tag ${tagName}"
+        git.pushTag(remote, tagName)
+        println "i2EWq3OFSE :: tag ${tagName} pushed OK"
+        incrementVersionFile(versionFile)
+        version = versionFile.text.trim()
+        tagName = "snapshot-" + git.currentBranch() + "-" + version
+        println "yv01L121S0 :: increment version to ${version} : tagName = ${tagName}"
+        println "WM4Gt0d0EA :: tagName = ${tagName}"
+        error = null
+        git.commitOneFile(
+          rootDir.toPath().relativize(versionFile).toString(),
+          "SCRIPT: Automatic increment version to ${version}"
+        )
+        println "Z29GWQ08j5 :: Committed version ${version}"
+        break
+      } catch (Exception err) {
+        error = err
+        error.printStackTrace()
+        incrementVersionFile(versionFile)
+        version = versionFile.text.trim()
+        tagName = "snapshot-" + git.currentBranch() + "-" + version
+        println "ibnbDyXi5S :: increment version to ${version} : tagName = ${tagName}"
+      }
+    }
+
+    if (error != null) {
+      throw error
     }
 
   }

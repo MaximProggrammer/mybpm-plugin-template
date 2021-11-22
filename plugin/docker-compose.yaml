@@ -1,15 +1,14 @@
+###PIN m1 MODIFY replace template {PLUGIN_NAME.under}
 version: "2.4"
 
 networks:
   default:
     external:
-      ###MODIFY replace template {PLUGIN_NAME.under}
       name: plugin-template-network
 
 services:
 
   web:
-    ###MODIFY replace template {PLUGIN_NAME.under}
     container_name: plugin-template-web
     image: dockerhub.mybpm.kz/mybpm-web-master
     restart: always
@@ -23,10 +22,8 @@ services:
       MYBPM_API_PORT: "8080"
 
   api:
-    ###MODIFY replace template {PLUGIN_NAME.under}
     container_name: plugin-template-api
-    ###MODIFY replace template {PLUGIN_NAME.under}
-    image: mybpm-api-with-template
+    image: dockerhub.mybpm.kz/mybpm-api-with-template
     #restart: unless-stopped
     ports:
       ###MODIFY port 23101
@@ -34,7 +31,6 @@ services:
       ###MODIFY port 23102
       - "23102:5005"              #                 DEBUG    localhost 23102
     environment:
-      ###MODIFY replace template {PLUGIN_NAME.under}
       MYBPM_PLUGINS: "template"
       MYBPM_CORS: "ALL"
       MYBPM_JAVA_DEBUG: "yes"

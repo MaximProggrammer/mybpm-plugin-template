@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit 113
 
 set -e
 
@@ -8,8 +8,7 @@ set -e
 
 docker-compose down
 
-###MODIFY replace template {PLUGIN_NAME.under}
-docker build . -t mybpm-api-with-template
+docker build . -t "$(bash lib/image-base.bash)"
 
 docker-compose up -d
 
