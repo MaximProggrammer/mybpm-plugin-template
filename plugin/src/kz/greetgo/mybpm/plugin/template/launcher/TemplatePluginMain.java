@@ -9,8 +9,10 @@ import kz.greetgo.mybpm.plugin.share.umbilical_service.BoiConsumerUmbilicalServi
 import kz.greetgo.mybpm.plugin.share.umbilical_service.ControllerRegistrarUmbilicalService;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.PostgresUmbilicalService;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.SchedulerUmbilicalService;
+import kz.greetgo.mybpm.plugin.share.umbilical_service.VersionUmbilicalService;
 import kz.greetgo.mybpm.plugin.share.umbilical_service.boi.BoiModification;
 import kz.greetgo.mybpm.plugin.template.controller.TestPluginController;
+import kz.greetgo.mybpm.plugin.template.etc.App;
 import kz.greetgo.mybpm.plugin.template.etc.liquibase.LiquibaseManager;
 import kz.greetgo.mybpm.plugin.template.register.TestPluginRegisterImpl;
 import kz.greetgo.mybpm.plugin.template.scheduler.TestSchedulerController;
@@ -24,6 +26,8 @@ public class TemplatePluginMain implements PluginMain {
 
   @Override
   public void initPlugin(UmbilicalCord umbilicalCord) {
+
+    setVersionInfo(umbilicalCord);
 
     umbilicalCord.get(BoiConsumerUmbilicalService.class)
                  .addBoiModificationHandler(
@@ -48,6 +52,13 @@ public class TemplatePluginMain implements PluginMain {
     var controllerRegistrarUs = umbilicalCord.get(ControllerRegistrarUmbilicalService.class);
     controllerRegistrarUs.register(testPluginController);
 
+  }
+
+  private void setVersionInfo(UmbilicalCord umbilicalCord) {
+    var service = umbilicalCord.get(VersionUmbilicalService.class);
+    service.setPluginGitId(App.gitId());
+    service.setPluginVersion(App.version());
+    service.setPluginVendor(App.vendor());
   }
 
   @Override

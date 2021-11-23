@@ -1,10 +1,9 @@
+###PIN m1 MODIFY replace template {PLUGIN_NAME.under}
+###PIN m2 MODIFY replace Template {PLUGIN_NAME.Camel}
 version: 1
 
 plugin:
-  ###MODIFY replace template {PLUGIN_NAME.under}
   id: template
-  ###MODIFY replace template {PLUGIN_NAME.under}
-  ###MODIFY replace Template {PLUGIN_NAME.Camel}
   main-class: kz.greetgo.mybpm.plugin.template.launcher.TemplatePluginMain
   umbilical-cord-services:
 
@@ -23,3 +22,4 @@ plugin:
     kz.greetgo.mybpm.plugin.share.umbilical_service.LiquidMongoUmbilicalService:
     kz.greetgo.mybpm.plugin.share.umbilical_service.BoiInterceptorUmbilicalService:
     kz.greetgo.mybpm.plugin.share.umbilical_service.SchedulerUmbilicalService:
+    kz.greetgo.mybpm.plugin.share.umbilical_service.VersionUmbilicalService:
