@@ -42,7 +42,7 @@ subprojects {
   task allDeps(type: DependencyReportTask) {}
 
   dependencies {
-    ext.mybpmVersion = "4.0.150"
+    ext.mybpmVersion = "4.0.180"
     ext.testNgVersion = "7.4.0"
     ext.assertjVersion = "3.12.2"
     ext.lombokVersion = '1.18.22'
